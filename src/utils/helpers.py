@@ -14,8 +14,9 @@ def load_nav_graph(file_path: str) -> NavigationGraph:
     nav_graph.name = data.get("building_name", "")
     
     # Get the first level (assuming single level for simplicity)
-    level_data = data["levels"][next(iter(data["levels"]))]
-    
+    level_data = data["levels"][next(iter(data["levels"]))]  # It extracts the first key from the data["levels"] dictionary, then uses that key to get the associated value from the dictionary. The result is stored in level_data
+                                                             # level data ("level1", "l0", "l1") will be a dictionary with vertices and lanes as keys
+                                                             
     # Process vertices
     for idx, vertex_data in enumerate(level_data["vertices"]):
         x, y, attrs = vertex_data[0], vertex_data[1], vertex_data[2]
