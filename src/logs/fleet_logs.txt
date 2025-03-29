@@ -8,3 +8,32 @@
 2025-03-29 17:32:39,719 - fleet_manager - INFO - Assigned task to Robot 1: 4 -> 3 via [4, 3]
 2025-03-29 17:32:53,526 - fleet_manager - INFO - Robot 1 reached destination 3
 2025-03-29 17:32:55,934 - fleet_manager - INFO - Robot 2 reached destination 1
+2025-03-29 18:55:52,532 - fleet_manager - INFO - Spawned Robot 1 at vertex 11
+2025-03-29 18:55:55,982 - fleet_manager - INFO - Spawned Robot 2 at vertex 13
+2025-03-29 18:56:04,842 - fleet_manager - INFO - Assigned task to Robot 1: 11 -> 3 via [11, 5, 4, 0, 10, 1, 3]
+2025-03-29 18:56:11,395 - fleet_manager - WARNING - Path blocked for Robot 2 to 0
+2025-03-29 18:56:19,855 - fleet_manager - INFO - Assigned task to Robot 2: 13 -> 8 via [13, 2, 9, 8]
+2025-03-29 18:56:50,608 - fleet_manager - INFO - Robot 2 reached destination 8
+2025-03-29 18:57:15,540 - fleet_manager - INFO - Robot 1 reached destination 3
+2025-03-29 18:59:11,499 - fleet_manager - INFO - Spawned Robot 1 at vertex 3
+2025-03-29 18:59:19,914 - fleet_manager - INFO - Spawned Robot 2 at vertex 8
+2025-03-29 18:59:26,548 - fleet_manager - INFO - Assigned task to Robot 1: 3 -> 0 via [3, 2, 1, 0]
+2025-03-29 18:59:31,663 - fleet_manager - WARNING - Path blocked for Robot 2 to 7
+2025-03-29 18:59:35,612 - fleet_manager - INFO - Spawned Robot 3 at vertex 9
+2025-03-29 18:59:43,537 - fleet_manager - INFO - Robot 1 reached destination 0
+2025-03-29 18:59:52,441 - fleet_manager - INFO - Assigned task to Robot 1: 0 -> 11 via [0, 13, 12, 11]
+2025-03-29 18:59:58,029 - fleet_manager - WARNING - Path blocked for Robot 3 to 11
+2025-03-29 19:00:01,317 - fleet_manager - INFO - Spawned Robot 4 at vertex 10
+2025-03-29 19:00:09,335 - fleet_manager - INFO - Robot 1 reached destination 11
+2025-03-29 19:00:13,828 - fleet_manager - WARNING - Path blocked for Robot 2 to 7
+2025-03-29 19:00:19,278 - fleet_manager - WARNING - Path blocked for Robot 2 to 7
+2025-03-29 19:00:25,068 - fleet_manager - WARNING - Path blocked for Robot 2 to 1
+2025-03-29 19:00:29,677 - fleet_manager - INFO - Assigned task to Robot 1: 11 -> 0 via [11, 12, 13, 0]
+2025-03-29 19:00:46,278 - fleet_manager - INFO - Robot 1 reached destination 0
+2025-03-29 19:02:05,415 - fleet_manager - INFO - Spawned Robot 1 at vertex 1
+2025-03-29 19:02:08,458 - fleet_manager - INFO - Spawned Robot 2 at vertex 3
+2025-03-29 19:02:14,098 - fleet_manager - INFO - Assigned task to Robot 2: 3 -> 5 via [3, 2, 6, 5]
+2025-03-29 19:02:19,959 - fleet_manager - WARNING - Path blocked for Robot 1 to 6
+2025-03-29 19:02:25,260 - fleet_manager - INFO - Assigned task to Robot 1: 1 -> 0 via [1, 0]
+2025-03-29 19:02:48,417 - fleet_manager - INFO - Robot 2 reached destination 5
+2025-03-29 19:02:50,280 - fleet_manager - INFO - Robot 1 reached destination 0

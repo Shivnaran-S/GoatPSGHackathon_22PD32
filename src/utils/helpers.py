@@ -11,7 +11,7 @@ def load_nav_graph(file_name: str) -> NavigationGraph:
     base_dir = os.path.dirname(__file__)
     data_dir = os.path.join(base_dir, '..', '..', 'data')  # Navigate two directories up to 'data'
     file_path = os.path.join(data_dir, file_name)
-    print(file_path)
+    #print(file_path)
 
     with open(file_path, 'r') as f:
         data = json.load(f)
