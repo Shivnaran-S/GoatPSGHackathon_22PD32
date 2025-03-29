@@ -2,11 +2,17 @@ import json
 import math
 from typing import List, Tuple
 from queue import PriorityQueue
+import os
 
-from ..models import NavigationGraph, Vertex, Lane
+from models.nav_graph import NavigationGraph, Vertex, Lane
 
-def load_nav_graph(file_path: str) -> NavigationGraph:
+def load_nav_graph(file_name: str) -> NavigationGraph:
     """Load navigation graph from JSON file"""
+    base_dir = os.path.dirname(__file__)
+    data_dir = os.path.join(base_dir, '..', '..', 'data')  # Navigate two directories up to 'data'
+    file_path = os.path.join(data_dir, file_name)
+    print(file_path)
+
     with open(file_path, 'r') as f:
         data = json.load(f)
     
@@ -54,14 +60,14 @@ def find_shortest_path(graph: NavigationGraph, start: int, end: int) -> List[int
         return calculate_distance(v1, v2)
     
     open_set = PriorityQueue()
-    open_set.put((0, start))
+    open_set.put((0, start))  # 0 represents the f_score of the starting node
     came_from = {}
     g_score = {vertex.index: float('inf') for vertex in graph.vertices}
     g_score[start] = 0
     f_score = {vertex.index: float('inf') for vertex in graph.vertices}
-    f_score[start] = heuristic(start, end)
+    f_score[start] = heuristic(start, end)  # g_score[start] + heuristic(start, end) = 0 + heuristic(start, end) = heuristic(start, end)
     
-    open_set_hash = {start}
+    open_set_hash = {start}  # set that keeps track of the nodes currently in the priority queue (open_set)
     
     while not open_set.empty():
         current = open_set.get()[1]

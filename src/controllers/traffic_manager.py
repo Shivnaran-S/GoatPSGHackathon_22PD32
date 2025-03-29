@@ -2,17 +2,16 @@ from threading import Lock
 from typing import Dict, List, Set, Tuple, Optional
 from queue import Queue
 
-from ..models import NavigationGraph
+from models.nav_graph import NavigationGraph
 
 class TrafficManager:
     """Manages traffic and collision avoidance"""
     def __init__(self, nav_graph: NavigationGraph):
         self.nav_graph = nav_graph
-        self.lane_reservations: Dict[Tuple[int, int], int] = {}  # (start, end) -> robot_id
-        self.vertex_reservations: Dict[int, int] = {}  # vertex_index -> robot_id
-        self.lock = Lock() #threading.Lock()
-        self.waiting_robots = Queue()
-    
+        self.lane_reservations: Dict[Tuple[int, int], int] = {}
+        self.vertex_reservations: Dict[int, int] = {}
+        self.lock = Lock()
+
     def reserve_path(self, robot_id: int, path: List[int]) -> bool:
         """Attempt to reserve a path for a robot, returns True if successful"""
         with self.lock:
@@ -25,8 +24,7 @@ class TrafficManager:
                 
                 # Check lane availability (except for the last vertex)
                 if i < len(path) - 1:
-                    next_vertex = path[i+1]
-                    lane_key = (vertex, next_vertex)
+                    lane_key = (vertex, path[i+1])
                     if self.lane_reservations.get(lane_key, None) not in [None, robot_id]:
                         return False
             
@@ -36,12 +34,11 @@ class TrafficManager:
                 self.vertex_reservations[vertex] = robot_id
                 
                 if i < len(path) - 1:
-                    next_vertex = path[i+1]
-                    lane_key = (vertex, next_vertex)
+                    lane_key = (vertex, path[i+1])
                     self.lane_reservations[lane_key] = robot_id
             
             return True
-    
+                
     def release_path(self, robot_id: int, path: List[int]):
         """Release reservations for a robot's path"""
         with self.lock:

@@ -1,9 +1,14 @@
 import logging
 import time
-from typing import Dict, List, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 from threading import Lock
-from ..models import Robot, RobotStatus, NavigationGraph
+
+from models.robot import Robot, RobotStatus
+from models.nav_graph import NavigationGraph
+
 from .traffic_manager import TrafficManager
+
+from utils.helpers import calculate_distance, find_shortest_path
 
 class FleetManager:
     """Manages the fleet of robots and their tasks"""
@@ -13,57 +18,34 @@ class FleetManager:
         self.robots: Dict[int, Robot] = {}
         self.next_robot_id = 1
         self.logger = self._setup_logger()
-        self.lock = threading.Lock()
-    
+        self.lock = Lock()
+
     def _setup_logger(self):
         logger = logging.getLogger('fleet_manager')
-        logger.setLevel(LOGGING_LEVEL)
+        logger.setLevel(logging.INFO)
         
         # Create file handler
         fh = logging.FileHandler('fleet_logs.txt')
-        fh.setLevel(LOGGING_LEVEL)
+        fh.setLevel(logging.INFO)
         
-        # Create console handler
-        ch = logging.StreamHandler()
-        ch.setLevel(LOGGING_LEVEL)
-        
-        # Create formatter and add it to the handlers
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         fh.setFormatter(formatter)
-        ch.setFormatter(formatter)
         
-        # Add the handlers to the logger
         logger.addHandler(fh)
-        logger.addHandler(ch)
-        
         return logger
-    
+
     def spawn_robot(self, vertex_index: int) -> Optional[Robot]:
-        """Spawn a new robot at the specified vertex"""
         if vertex_index < 0 or vertex_index >= len(self.nav_graph.vertices):
             return None
         
-        if len(self.robots) >= MAX_ROBOTS:
-            self.logger.warning(f"Maximum number of robots ({MAX_ROBOTS}) reached")
-            return None
-        
         with self.lock:
-            # Check if vertex is available
             if self.nav_graph.vertices[vertex_index].occupied_by is not None:
-                self.logger.warning(f"Vertex {vertex_index} is already occupied")
                 return None
             
             robot_id = self.next_robot_id
             self.next_robot_id += 1
             
-            color = ROBOT_COLORS[(robot_id - 1) % len(ROBOT_COLORS)]
-            
-            robot = Robot(
-                id=robot_id,
-                current_vertex=vertex_index,
-                color=color
-            )
-            
+            robot = Robot(robot_id, vertex_index)
             self.robots[robot_id] = robot
             self.nav_graph.vertices[vertex_index].occupied_by = robot_id
             
