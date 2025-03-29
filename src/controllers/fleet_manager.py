@@ -1,4 +1,5 @@
 import logging
+import os
 import time
 from typing import Dict, List, Optional, Set, Tuple
 from threading import Lock
@@ -25,7 +26,11 @@ class FleetManager:
         logger.setLevel(logging.INFO)
         
         # Create file handler
-        fh = logging.FileHandler('fleet_logs.txt')
+        base_dir = os.path.dirname(__file__)
+        data_dir = os.path.join(base_dir, '..', 'logs')
+        file_path = os.path.join(data_dir, 'fleet_logs.txt')
+
+        fh = logging.FileHandler(file_path)
         fh.setLevel(logging.INFO)
         
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')

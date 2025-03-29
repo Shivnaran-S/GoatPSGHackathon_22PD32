@@ -1,0 +1,10 @@
+2025-03-29 17:32:02,259 - fleet_manager - INFO - Spawned Robot 1 at vertex 4
+2025-03-29 17:32:06,182 - fleet_manager - INFO - Spawned Robot 2 at vertex 5
+2025-03-29 17:32:11,732 - fleet_manager - INFO - Assigned task to Robot 2: 5 -> 1 via [5, 6, 2, 1]
+2025-03-29 17:32:17,499 - fleet_manager - WARNING - Path blocked for Robot 1 to 1
+2025-03-29 17:32:23,020 - fleet_manager - WARNING - Path blocked for Robot 1 to 2
+2025-03-29 17:32:29,282 - fleet_manager - WARNING - Path blocked for Robot 1 to 6
+2025-03-29 17:32:34,610 - fleet_manager - WARNING - Path blocked for Robot 1 to 5
+2025-03-29 17:32:39,719 - fleet_manager - INFO - Assigned task to Robot 1: 4 -> 3 via [4, 3]
+2025-03-29 17:32:53,526 - fleet_manager - INFO - Robot 1 reached destination 3
+2025-03-29 17:32:55,934 - fleet_manager - INFO - Robot 2 reached destination 1
