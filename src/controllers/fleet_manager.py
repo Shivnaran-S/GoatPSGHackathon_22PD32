@@ -11,7 +11,7 @@ from .traffic_manager import TrafficManager
 
 from utils.helpers import calculate_distance, find_shortest_path
 
-MIN_CHARGE = 99.0
+MIN_CHARGE = 95.0
 
 class FleetManager:
     """Manages the fleet of robots and their tasks"""

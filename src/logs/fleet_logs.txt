@@ -3424,3 +3424,83 @@
 2025-03-30 22:43:12,174 - fleet_manager - WARNING - Robot 3 is moving to charger, cannot assign new task
 2025-03-30 22:43:12,438 - fleet_manager - INFO - Robot 3 reached charger at 9, battery fully charged
 2025-03-30 22:43:13,001 - fleet_manager - INFO - Robot 3 finished charging (battery: 100%)
+2025-03-30 23:45:09,184 - fleet_manager - INFO - Spawned Robot 1 at vertex 1
+2025-03-30 23:45:16,619 - fleet_manager - INFO - Assigned task to Robot 1: 1 -> 10 via [1, 10]
+2025-03-30 23:45:26,478 - fleet_manager - WARNING - Robot 1 battery critically low (99.0%), redirecting to charger at 4
+2025-03-30 23:45:26,478 - fleet_manager - INFO - Assigned task to Robot 1: 1 -> 4 via [1, 10, 0, 4]
+2025-03-30 23:45:26,762 - fleet_manager - WARNING - Robot 1 battery critically low (99.0%), redirecting to charger at 4
+2025-03-30 23:45:26,762 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:27,043 - fleet_manager - WARNING - Robot 1 battery critically low (98.9%), redirecting to charger at 4
+2025-03-30 23:45:27,043 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:27,311 - fleet_manager - WARNING - Robot 1 battery critically low (98.9%), redirecting to charger at 4
+2025-03-30 23:45:27,312 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:27,580 - fleet_manager - WARNING - Robot 1 battery critically low (98.9%), redirecting to charger at 4
+2025-03-30 23:45:27,581 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:27,848 - fleet_manager - WARNING - Robot 1 battery critically low (98.9%), redirecting to charger at 4
+2025-03-30 23:45:27,848 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:28,114 - fleet_manager - WARNING - Robot 1 battery critically low (98.8%), redirecting to charger at 4
+2025-03-30 23:45:28,115 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:28,383 - fleet_manager - WARNING - Robot 1 battery critically low (98.8%), redirecting to charger at 4
+2025-03-30 23:45:28,383 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:28,668 - fleet_manager - WARNING - Robot 1 battery critically low (98.8%), redirecting to charger at 4
+2025-03-30 23:45:28,668 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:28,936 - fleet_manager - WARNING - Robot 1 battery critically low (98.7%), redirecting to charger at 4
+2025-03-30 23:45:28,936 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:29,206 - fleet_manager - WARNING - Robot 1 battery critically low (98.7%), redirecting to charger at 4
+2025-03-30 23:45:29,206 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:29,489 - fleet_manager - WARNING - Robot 1 battery critically low (98.7%), redirecting to charger at 4
+2025-03-30 23:45:29,489 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:29,771 - fleet_manager - WARNING - Robot 1 battery critically low (98.7%), redirecting to charger at 4
+2025-03-30 23:45:29,771 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:30,038 - fleet_manager - WARNING - Robot 1 battery critically low (98.6%), redirecting to charger at 4
+2025-03-30 23:45:30,039 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:30,321 - fleet_manager - WARNING - Robot 1 battery critically low (98.6%), redirecting to charger at 4
+2025-03-30 23:45:30,321 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:30,637 - fleet_manager - WARNING - Robot 1 battery critically low (98.6%), redirecting to charger at 4
+2025-03-30 23:45:30,637 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:30,933 - fleet_manager - WARNING - Robot 1 battery critically low (98.5%), redirecting to charger at 4
+2025-03-30 23:45:30,933 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:31,216 - fleet_manager - WARNING - Robot 1 battery critically low (98.5%), redirecting to charger at 4
+2025-03-30 23:45:31,216 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:31,502 - fleet_manager - WARNING - Robot 1 battery critically low (98.5%), redirecting to charger at 4
+2025-03-30 23:45:31,502 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:31,752 - fleet_manager - WARNING - Robot 1 battery critically low (98.5%), redirecting to charger at 4
+2025-03-30 23:45:31,753 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:32,005 - fleet_manager - WARNING - Robot 1 battery critically low (98.4%), redirecting to charger at 4
+2025-03-30 23:45:32,005 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:32,271 - fleet_manager - WARNING - Robot 1 battery critically low (98.4%), redirecting to charger at 4
+2025-03-30 23:45:32,271 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:32,506 - fleet_manager - WARNING - Robot 1 battery critically low (98.4%), redirecting to charger at 4
+2025-03-30 23:45:32,507 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:32,740 - fleet_manager - WARNING - Robot 1 battery critically low (98.4%), redirecting to charger at 4
+2025-03-30 23:45:32,741 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:32,979 - fleet_manager - WARNING - Robot 1 battery critically low (98.3%), redirecting to charger at 4
+2025-03-30 23:45:32,979 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:33,214 - fleet_manager - WARNING - Robot 1 battery critically low (98.3%), redirecting to charger at 4
+2025-03-30 23:45:33,215 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:33,499 - fleet_manager - WARNING - Robot 1 battery critically low (98.3%), redirecting to charger at 4
+2025-03-30 23:45:33,500 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:33,734 - fleet_manager - WARNING - Robot 1 battery critically low (98.3%), redirecting to charger at 4
+2025-03-30 23:45:33,734 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:33,970 - fleet_manager - WARNING - Robot 1 battery critically low (98.2%), redirecting to charger at 4
+2025-03-30 23:45:33,970 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:34,208 - fleet_manager - WARNING - Robot 1 battery critically low (98.2%), redirecting to charger at 4
+2025-03-30 23:45:34,209 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:34,439 - fleet_manager - WARNING - Robot 1 battery critically low (98.2%), redirecting to charger at 4
+2025-03-30 23:45:34,439 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:34,681 - fleet_manager - WARNING - Robot 1 battery critically low (98.2%), redirecting to charger at 4
+2025-03-30 23:45:34,681 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:34,917 - fleet_manager - WARNING - Robot 1 battery critically low (98.1%), redirecting to charger at 4
+2025-03-30 23:45:34,917 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:35,168 - fleet_manager - WARNING - Robot 1 battery critically low (98.1%), redirecting to charger at 4
+2025-03-30 23:45:35,168 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:35,405 - fleet_manager - WARNING - Robot 1 battery critically low (98.1%), redirecting to charger at 4
+2025-03-30 23:45:35,405 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:35,643 - fleet_manager - WARNING - Robot 1 battery critically low (98.1%), redirecting to charger at 4
+2025-03-30 23:45:35,643 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:35,877 - fleet_manager - WARNING - Robot 1 battery critically low (98.1%), redirecting to charger at 4
+2025-03-30 23:45:35,877 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:36,114 - fleet_manager - WARNING - Robot 1 battery critically low (98.0%), redirecting to charger at 4
+2025-03-30 23:45:36,114 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
+2025-03-30 23:45:36,351 - fleet_manager - WARNING - Robot 1 battery critically low (98.0%), redirecting to charger at 4
+2025-03-30 23:45:36,351 - fleet_manager - WARNING - Robot 1 is moving to charger, cannot assign new task
