@@ -10,7 +10,7 @@ from utils.helpers import load_nav_graph
 
 def main():
     try:
-        nav_graph = load_nav_graph("nav_graph_1.json")
+        nav_graph = load_nav_graph("nav_graph_1.json") # enter the name of the .json file that you want to use from data directory 
     except FileNotFoundError:
         messagebox.showerror("Error", "Could not load navigation graph file")
         return
