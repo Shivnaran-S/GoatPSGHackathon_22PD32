@@ -10,7 +10,7 @@ from utils.helpers import load_nav_graph
 
 def main():
     try:
-        nav_graph = load_nav_graph("nav_graph_3.json")
+        nav_graph = load_nav_graph("nav_graph_1.json")
     except FileNotFoundError:
         messagebox.showerror("Error", "Could not load navigation graph file")
         return

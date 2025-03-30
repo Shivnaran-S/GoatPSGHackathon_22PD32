@@ -97,19 +97,10 @@ class FleetGUI:
             
             # Draw lane
             self.ax.plot([v1.x, v2.x], [v1.y, v2.y], 'k-', alpha=0.3, linewidth=2)
-            
-            # Draw direction arrow (only once per lane pair)
-            if lane.start < lane.end:
-                mid_x = (v1.x + v2.x) / 2
-                mid_y = (v1.y + v2.y) / 2
-                dx = v2.x - v1.x
-                dy = v2.y - v1.y
-                self.ax.arrow(mid_x, mid_y, dx*0.2, dy*0.2, 
-                             head_width=0.2, head_length=0.3, fc='k', ec='k', alpha=0.5)
         
         # Draw vertices
         for vertex in self.nav_graph.vertices:
-            color = 'green' if vertex.is_charger else 'blue'
+            color = 'green' if vertex.is_charger else 'black'
             marker = 's' if vertex.is_charger else 'o'
             self.ax.plot(vertex.x, vertex.y, marker=marker, color=color, markersize=10)
             
@@ -123,18 +114,43 @@ class FleetGUI:
             robot_info = self.fleet_manager.get_robot_info(robot_id)
             x, y = robot_info['x'], robot_info['y']
             
-            # Draw robot
-            self.ax.plot(x, y, 'o', color=robot_info['color'], markersize=12, markeredgecolor='black')
+            '''
+            # Choose marker based on status
+            marker = {
+                'MOVING': 'D',        # Diamond
+                'IDLE': 'o',          # Circle
+                'WAITING': 's',       # Square
+                'CHARGING': 'p',      # Pentagon
+                'TASK_COMPLETE': '*', # Star
+                'ERROR': 'X',         # X
+                'MOVING_TO_CHARGER': 'D' # Diamond
+            }.get(robot_info['status'], 'o')
+            '''
+            # Special handling for MOVING_TO_CHARGER status
+            if robot_info['status'] == 'MOVING_TO_CHARGER':
+                # Draw robot as triangle with flashing red color
+                flash_factor = 0.5 + 0.5 * math.sin(time.time() * 5)  # Creates pulsing effect
+                color = (1.0, flash_factor, flash_factor)  # Red with pulsing brightness
+                self.ax.plot(x, y, marker='^', color=color, 
+                            markersize=14, markeredgecolor='red', markeredgewidth=2)
+            else:
+                # Normal robot drawing
+                self.ax.plot(x, y, marker='^', color=robot_info['color'], 
+                            markersize=12, markeredgecolor='black')
             
-            # Draw robot ID
-            self.ax.text(x + 0.2, y + 0.2, str(robot_id), 
-                        fontsize=10, bbox=dict(facecolor='white', alpha=0.7))
+            # Draw robot ID and status
+            status_text = f"{robot_id}: {robot_info['status']}"
+            if robot_info['status'] == 'WAITING':
+                status_text += f"\nBlocked at {robot_info['current_vertex']}"
+            self.ax.text(x + 0.2, y + 0.2, status_text, 
+                        fontsize=8, bbox=dict(facecolor='white', alpha=0.7))
             
             # Draw path if robot is moving
-            if robot_info['status'] == 'MOVING' and robot_info['path']:
+            if robot_info['status'] in ['MOVING', 'MOVING_TO_CHARGER'] and robot_info['path']:
                 path_x = [self.nav_graph.vertices[v].x for v in robot_info['path']]
                 path_y = [self.nav_graph.vertices[v].y for v in robot_info['path']]
-                self.ax.plot(path_x, path_y, '--', color=robot_info['color'], alpha=0.5)
+                path_color = 'red' if robot_info['status'] == 'MOVING_TO_CHARGER' else robot_info['color']
+                self.ax.plot(path_x, path_y, '--', color=path_color, alpha=0.7, linewidth=2)
         
         # Highlight selected robot and vertex
         if self.selected_robot:

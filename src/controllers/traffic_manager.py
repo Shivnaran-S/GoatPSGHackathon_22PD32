@@ -20,6 +20,7 @@ class TrafficManager:
                 vertex = path[i]
                 # Check vertex availability
                 if self.vertex_reservations.get(vertex, None) not in [None, robot_id]:
+                    print("\n","vertex: ",vertex," ",self.vertex_reservations.get(vertex, None)," here")
                     return False
                 
                 # Check lane availability (except for the last vertex)
@@ -52,10 +53,26 @@ class TrafficManager:
                     lane_key = (vertex, next_vertex)
                     if self.lane_reservations.get(lane_key) == robot_id:
                         self.lane_reservations[lane_key] = None
+
+    def release_vertex(self, robot_id: int, vertex: int):
+        """Release a single vertex reservation"""
+        with self.lock:
+            if self.vertex_reservations.get(vertex) == robot_id:
+                self.vertex_reservations[vertex] = None
+
+    def release_lane(self, robot_id: int, start: int, end: int):
+        """Release a single lane reservation"""
+        with self.lock:
+            lane_key = (start, end)
+            if self.lane_reservations.get(lane_key) == robot_id:
+                self.lane_reservations[lane_key] = None
     
     def find_alternative_path(self, robot_id: int, start: int, end: int, blocked_vertices: Set[int]) -> List[int]:
         """Find an alternative path avoiding blocked vertices"""
         # Create a temporary graph without blocked vertices
+        if start in blocked_vertices or end in blocked_vertices:
+            return []
+    
         temp_adj = {}
         for v, neighbors in self.nav_graph.adjacency_list.items():
             if v not in blocked_vertices:

@@ -11,6 +11,8 @@ from .traffic_manager import TrafficManager
 
 from utils.helpers import calculate_distance, find_shortest_path
 
+MIN_CHARGE = 99.0
+
 class FleetManager:
     """Manages the fleet of robots and their tasks"""
     def __init__(self, nav_graph: NavigationGraph, traffic_manager: TrafficManager):
@@ -66,6 +68,11 @@ class FleetManager:
             return False
         
         robot = self.robots[robot_id]
+
+        # Prevent task assignment if robot is moving to charger
+        if robot.status == RobotStatus.MOVING_TO_CHARGER:
+            self.logger.warning(f"Robot {robot_id} is moving to charger, cannot assign new task")
+            return False
         
         if robot.current_vertex == destination_vertex:
             self.logger.info(f"Robot {robot_id} is already at destination {destination_vertex}")
@@ -73,6 +80,7 @@ class FleetManager:
         
         # Find the shortest path
         path = find_shortest_path(self.nav_graph, robot.current_vertex, destination_vertex)
+        print(path)
         
         if not path:
             self.logger.warning(f"No path found from {robot.current_vertex} to {destination_vertex}")
@@ -87,7 +95,7 @@ class FleetManager:
             }
             
             alt_path = self.traffic_manager.find_alternative_path(robot_id, robot.current_vertex, destination_vertex, blocked_vertices)
-            
+            print(alt_path)
             if alt_path and self.traffic_manager.reserve_path(robot_id, alt_path):
                 path = alt_path
                 self.logger.info(f"Robot {robot_id} taking alternative path to avoid congestion")
@@ -117,7 +125,19 @@ class FleetManager:
         """Update positions of all moving robots"""
         with self.lock:
             for robot in list(self.robots.values()):
-                if robot.status == RobotStatus.MOVING and robot.path:
+                if robot.status in [RobotStatus.MOVING, RobotStatus.MOVING_TO_CHARGER] and robot.path:
+                    # Check if next vertex is available
+                    next_vertex_idx = robot.path[1]
+                    next_vertex = self.nav_graph.vertices[next_vertex_idx]
+                    
+                    # If next vertex is occupied by another robot, go to waiting state
+                    if next_vertex.occupied_by is not None and next_vertex.occupied_by != robot.id:
+                        robot.status = RobotStatus.WAITING
+                        robot.waiting_since = time.time()
+                        robot.waiting_for_vertex = next_vertex_idx
+                        self.logger.info(f"Robot {robot.id} waiting at {robot.current_vertex} for {next_vertex_idx}")
+                        continue
+                    
                     # Calculate movement for this time step
                     movement = robot.speed * delta_time
                     
@@ -134,6 +154,10 @@ class FleetManager:
                     
                     # If reached the next vertex
                     if robot.progress >= 1.0:
+                        # Release the current vertex and lane we're leaving
+                        self.traffic_manager.release_vertex(robot.id, current_vertex_idx)
+                        self.traffic_manager.release_lane(robot.id, current_vertex_idx, next_vertex_idx)
+                        
                         # Move to next vertex
                         self.nav_graph.vertices[current_vertex_idx].occupied_by = None
                         self.nav_graph.vertices[next_vertex_idx].occupied_by = robot.id
@@ -143,10 +167,22 @@ class FleetManager:
                         robot.path.pop(0)
                         robot.progress = 0.0
                         
+                        # Check if reached a charger
+                        if self.nav_graph.vertices[next_vertex_idx].is_charger:
+                            # Immediately charge to 100% if battery was low
+                            if robot.status == RobotStatus.MOVING_TO_CHARGER:
+                                robot.battery = 100.0
+                                robot.status = RobotStatus.CHARGING
+                                self.logger.info(f"Robot {robot.id} reached charger at {next_vertex_idx}, battery fully charged")
+                            # If not moving to charger but reached one, just start charging
+                            elif robot.battery < 100.0:
+                                robot.status = RobotStatus.CHARGING
+                                self.logger.info(f"Robot {robot.id} reached charger at {next_vertex_idx}, starting charge")
+
                         # If reached destination
-                        if len(robot.path) == 1:  # Last element is destination
+                        elif len(robot.path) == 1:  # Last element is destination
                             robot.status = RobotStatus.TASK_COMPLETE
-                            self.traffic_manager.release_path(robot.id, robot.path)
+                            self.traffic_manager.release_vertex(robot.id, next_vertex_idx)
                             robot.path = []
                             self.logger.info(f"Robot {robot.id} reached destination {robot.destination_vertex}")
                         
@@ -159,15 +195,31 @@ class FleetManager:
                     robot.battery = max(0, robot.battery - movement * 0.5)
                     
                     # If battery is critically low, try to find nearest charger
-                    if robot.battery < 10.0 and robot.status != RobotStatus.CHARGING:
+                    if robot.battery < MIN_CHARGE and robot.status != RobotStatus.CHARGING:
                         self._handle_low_battery(robot)
                 
+                elif robot.status == RobotStatus.WAITING:
+                    # Check if the vertex we're waiting for is now free
+                    if robot.waiting_for_vertex is not None:
+                        waiting_vertex = self.nav_graph.vertices[robot.waiting_for_vertex]
+                        if waiting_vertex.occupied_by is None or waiting_vertex.occupied_by == robot.id:
+                            if robot.battery < MIN_CHARGE:
+                                robot.status = RobotStatus.MOVING_TO_CHARGER
+                            else:
+                                robot.status = RobotStatus.MOVING
+                            robot.waiting_since = None
+                            robot.waiting_for_vertex = None
+                            self.logger.info(f"Robot {robot.id} resumed moving after waiting")
+                
                 elif robot.status == RobotStatus.CHARGING:
-                    # Charge the battery
-                    robot.battery = min(100.0, robot.battery + delta_time * 10.0)
-                    if robot.battery >= 95.0:
+                    # If already at 100%, stop charging
+                    if robot.battery >= 100.0:
+                        robot.battery = 100.0  # Ensure exact 100%
                         robot.status = RobotStatus.IDLE
-                        self.logger.info(f"Robot {robot.id} finished charging (battery: {robot.battery:.1f}%)")
+                        self.logger.info(f"Robot {robot.id} finished charging (battery: 100%)")
+                    # Otherwise continue charging at normal rate
+                    else:
+                        robot.battery = min(100.0, robot.battery + delta_time * 10.0)
     
     def _handle_low_battery(self, robot: Robot):
         """Handle low battery situation by redirecting to nearest charger"""
