@@ -45,7 +45,7 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/fleet-management-system.git
+   git clone https://github.com/Shivnaran-S/GoatPSGHackathon_22PD32.git
    ```
 2. **Install dependencies**
    ```bash
