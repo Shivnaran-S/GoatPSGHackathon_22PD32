@@ -51,7 +51,7 @@
    ```bash
    pip install -r requirements.txt
    ```
-3. **Run the system**
+3. **Run visual GUI system**
    ```bash
    python src/main.py
    ```
@@ -59,4 +59,5 @@
    - Click empty vertex → Spawn robot
    - Click robot → Select it
    - Click destination → Assign task
-   - Buttons: Spawn random robot, Assign random task
+   - Buttons: Spawn random robot, Assign random task  
+5. If you want to use any other Nav Graph (any other .json file), add the .json file to data directory and in src/main.py file in main function give the name of the file in load_nav_graph(file_name) function of try block
